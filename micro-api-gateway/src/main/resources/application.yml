@@ -1,0 +1,21 @@
+# Nacos帮助文档: https://nacos.io/zh-cn/docs/concepts.html
+spring:
+  application:
+    name: micro-api-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+    gateway:
+      routes:
+        - id: micro-user-service
+          uri: lb://micro-user-service
+          predicates:
+            - Path=/api/user/**
+        - id: micro-order-service
+          uri: lb://micro-order-service
+          predicates:
+            - Path=/api/order/**
+server:
+  port: 8080

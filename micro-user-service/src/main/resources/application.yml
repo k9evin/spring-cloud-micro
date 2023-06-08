@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: micro-user-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+server:
+  port: 8000
+  servlet:
+    context-path: /api
