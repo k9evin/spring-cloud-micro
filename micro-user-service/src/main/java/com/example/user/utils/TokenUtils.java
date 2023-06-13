@@ -9,7 +9,7 @@ import com.example.user.domain.User;
 import java.util.Date;
 
 public class TokenUtils {
-    private static final long EXPIRE_TIME = 10 * 60 * 60 * 1000;
+    private static final long EXPIRE_TIME = 60 * 1000;
     private static final String SECRET = "dinglicom";
 
     public static String createToken(User user) {
@@ -17,6 +17,7 @@ public class TokenUtils {
         Date expiredTime = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         token = JWT.create()
                 .withIssuer("spring-cloud-microservice")
+                .withClaim("id", user.getId())
                 .withClaim("username", user.getUsername())
                 .withIssuedAt(new Date(System.currentTimeMillis()))
                 .withExpiresAt(expiredTime)
@@ -25,9 +26,12 @@ public class TokenUtils {
     }
 
     public static boolean verifyToken(String token) {
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).withIssuer("spring-cloud-microservice").build();
-        DecodedJWT decodedJWT = jwtVerifier.verify(token);
-        Date expiresAt = decodedJWT.getExpiresAt();
-        return expiresAt.before(new Date(System.currentTimeMillis()));
+        try {
+            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
+            DecodedJWT decodedJWT = jwtVerifier.verify(token);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException("token无效");
+        }
     }
 }

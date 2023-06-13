@@ -42,5 +42,4 @@ public interface UserService extends IService<User> {
     User safeUser(User user);
 
 
-
 }

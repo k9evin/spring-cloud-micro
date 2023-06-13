@@ -24,10 +24,9 @@ import java.util.HashMap;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         implements UserService {
 
+    private static final String SALT = "dinglicom";
     @Resource
     private UserMapper userMapper;
-
-    private static final String SALT = "dinglicom";
 
     @Override
     public long userRegister(String username, String password) {
@@ -79,6 +78,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         String token = TokenUtils.createToken(user);
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("id", user.getId());
+        hashMap.put("username", user.getUsername());
         hashMap.put("token", token);
         return hashMap;
     }

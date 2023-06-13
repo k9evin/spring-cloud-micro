@@ -5,12 +5,13 @@
 <mapper namespace="com.example.user.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.example.user.domain.User">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="username" column="username" jdbcType="VARCHAR"/>
-            <result property="password" column="password" jdbcType="VARCHAR"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,username,password
+        id
+        ,username,password
     </sql>
 </mapper>
