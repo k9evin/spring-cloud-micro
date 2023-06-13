@@ -1,16 +1,18 @@
-package com.example.domain;
+package com.example.order.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Order {
 
     private Long id;
-    private String username;
-    private String password;
+    private Long userId;
+    private Date createTime;
 
 }

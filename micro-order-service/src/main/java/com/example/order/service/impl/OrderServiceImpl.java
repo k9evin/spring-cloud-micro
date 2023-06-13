@@ -1,7 +1,7 @@
-package com.example.service.impl;
+package com.example.order.service.impl;
 
-import com.example.domain.Order;
-import com.example.service.OrderService;
+import com.example.order.domain.Order;
+import com.example.order.service.OrderService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

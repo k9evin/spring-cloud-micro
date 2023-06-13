@@ -5,8 +5,13 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-        namespace: public
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/micro
+    username: postgres
+    password: 123456
 server:
   port: 8000
-  servlet:
-    context-path: /api
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false

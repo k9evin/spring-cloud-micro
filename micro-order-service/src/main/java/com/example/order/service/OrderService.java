@@ -1,6 +1,6 @@
-package com.example.service;
+package com.example.order.service;
 
-import com.example.domain.Order;
+import com.example.order.domain.Order;
 
 import java.util.List;
 

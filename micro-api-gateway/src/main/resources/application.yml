@@ -6,16 +6,23 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-        namespace: public
     gateway:
       routes:
-        - id: micro-user-service
+        - id: user-service
           uri: lb://micro-user-service
           predicates:
-            - Path=/api/user/**
-        - id: micro-order-service
+            - Path=/micro-user-service/**
+          filters:
+            - StripPrefix=1
+        - id: order-service
           uri: lb://micro-order-service
           predicates:
-            - Path=/api/order/**
+            - Path=/micro-order-service/**
+          filters:
+            - StripPrefix=1
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 server:
-  port: 8080
+  port: 8090

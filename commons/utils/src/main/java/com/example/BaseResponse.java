@@ -2,6 +2,7 @@ package com.example;
 
 
 import lombok.Data;
+
 import java.io.Serializable;
 
 @Data
