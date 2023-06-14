@@ -15,17 +15,16 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        String token = request.getHeader("token");
+        String token = request.getHeader("Token");
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         if (method.isAnnotationPresent((LoginRequired.class))) {
             LoginRequired loginRequired = method.getAnnotation(LoginRequired.class);
             if (loginRequired.required()) {
                 if (token == null) {
-                    throw new RuntimeException("无token，请重新登录");
+                    throw new RuntimeException("无Token，请登录后重试！");
                 }
-                // 验证token
-                log.info("验证token: {}", token);
+                JwtInterceptor.log.info("验证token: {}", token);
                 TokenUtils.verifyToken(token);
             }
         }

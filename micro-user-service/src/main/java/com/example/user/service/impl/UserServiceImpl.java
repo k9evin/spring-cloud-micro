@@ -46,11 +46,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return -1;
         }
         // 密码加密
-        String encryptedPwd = DigestUtils.md5DigestAsHex((SALT + password).getBytes());
+        String encryptedPwd = DigestUtils.md5DigestAsHex((UserServiceImpl.SALT + password).getBytes());
         User user = new User();
         user.setUsername(username);
         user.setPassword(encryptedPwd);
-        boolean saveResult = this.save(user);
+        boolean saveResult = save(user);
         // 注册失败
         if (!saveResult) {
             return -1;
@@ -65,7 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return null;
         }
         // 密码加密
-        String encryptedPwd = DigestUtils.md5DigestAsHex((SALT + password).getBytes());
+        String encryptedPwd = DigestUtils.md5DigestAsHex((UserServiceImpl.SALT + password).getBytes());
         // 校验用户信息
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
@@ -76,10 +76,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         // 返回token
         String token = TokenUtils.createToken(user);
+        User safeUser = safeUser(user);
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("id", user.getId());
-        hashMap.put("username", user.getUsername());
-        hashMap.put("token", token);
+        hashMap.put("User", safeUser);
+        hashMap.put("Token", token);
         return hashMap;
     }
 
@@ -93,5 +93,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         safeUser.setUsername(user.getUsername());
         return safeUser;
     }
+
 
 }

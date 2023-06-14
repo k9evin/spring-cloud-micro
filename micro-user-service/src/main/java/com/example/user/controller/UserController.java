@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * The type User controller.
+ */
 @RestController
 @Slf4j
 @RequestMapping("/user")
@@ -22,6 +27,12 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    /**
+     * 用户注册
+     *
+     * @param user 用户
+     * @return 新用户id
+     */
     @PostMapping("/register")
     @ApiOperation("用户注册")
     public BaseResponse<Long> userRegister(@RequestBody User user) {
@@ -37,6 +48,12 @@ public class UserController {
         return ResultUtils.success(result);
     }
 
+    /**
+     * 用户登录
+     *
+     * @param user 用户
+     * @return the base response
+     */
     @GetMapping("login")
     @ApiOperation("用户登录")
     @ResponseBody
@@ -50,13 +67,24 @@ public class UserController {
             throw new RuntimeException("用户名或密码不能为空");
         }
         HashMap<String, Object> hashMap = userService.userLogin(username, password);
-        return ResultUtils.success(hashMap);
+        if (hashMap != null) {
+            return ResultUtils.success(hashMap);
+        }
+        return ResultUtils.fail(null, "请检查用户名或密码！");
     }
 
-    @GetMapping("/hello")
+    /**
+     * 获取所有用户脱敏信息
+     * 请求头中必须要带有token
+     *
+     * @return 所有用户
+     */
+    @GetMapping("/getAllUsers")
     @LoginRequired
-    @ApiOperation("测试")
-    public String hello() {
-        return "hello";
+    @ApiOperation("获取所有用户信息")
+    public BaseResponse<List<User>> getAllUsers() {
+        List<User> users = userService.list();
+        List<User> safeUsers = users.stream().map(user -> userService.safeUser(user)).collect(Collectors.toList());
+        return ResultUtils.success(safeUsers);
     }
 }
