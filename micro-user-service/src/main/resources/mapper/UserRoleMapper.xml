@@ -5,7 +5,7 @@
 <mapper namespace="generator.mapper.UserRoleMapper">
 
     <resultMap id="BaseResultMap" type="generator.domain.UserRole">
-        <result property="id" column="id" jdbcType="BIGINT"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="roleId" column="roleId" jdbcType="BIGINT"/>
     </resultMap>
 

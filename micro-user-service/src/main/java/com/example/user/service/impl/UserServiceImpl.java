@@ -109,7 +109,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public String getRoleById(Long id) {
         if (id >= 0) {
             QueryWrapper<UserRole> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("user_id", id);
+            queryWrapper.eq("id", id);
             UserRole userRole = userRoleMapper.selectOne(queryWrapper);
             if (userRole != null) {
                 Role role = roleMapper.selectById(userRole.getRoleId());
