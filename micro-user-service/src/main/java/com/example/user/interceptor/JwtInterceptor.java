@@ -1,6 +1,6 @@
 package com.example.user.interceptor;
 
-import com.example.user.annotation.LoginRequired;
+import com.example.annotation.LoginRequired;
 import com.example.user.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
+/**
+ * @author Mingkai Pang
+ */
 @Slf4j
 public class JwtInterceptor implements HandlerInterceptor {
 
@@ -22,10 +25,10 @@ public class JwtInterceptor implements HandlerInterceptor {
             LoginRequired loginRequired = method.getAnnotation(LoginRequired.class);
             if (loginRequired.required()) {
                 if (token == null) {
-                    throw new RuntimeException("无Token，请登录后重试！");
+                    response.setStatus(403);
+                    return false;
                 }
-                JwtInterceptor.log.info("验证token: {}", token);
-                TokenUtils.verifyToken(token);
+                return TokenUtils.verifyToken(token);
             }
         }
         return true;

@@ -2,10 +2,15 @@ package com.example.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.user.domain.Role;
 import com.example.user.domain.User;
+import com.example.user.domain.UserRole;
+import com.example.user.mapper.RoleMapper;
 import com.example.user.mapper.UserMapper;
+import com.example.user.mapper.UserRoleMapper;
 import com.example.user.service.UserService;
 import com.example.user.utils.TokenUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -21,15 +26,19 @@ import java.util.HashMap;
  * @createDate 2023 -06-12 10:53:38
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User>
-        implements UserService {
+@Slf4j
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     private static final String SALT = "dinglicom";
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private RoleMapper roleMapper;
+    @Resource
+    private UserRoleMapper userRoleMapper;
 
     @Override
-    public long userRegister(String username, String password) {
+    public long userRegister(String username, String password, String role) {
         // 检验参数为空
         if (StringUtils.isAnyBlank(username, password)) {
             return -1;
@@ -50,6 +59,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         User user = new User();
         user.setUsername(username);
         user.setPassword(encryptedPwd);
+        user.setRole(role);
         boolean saveResult = save(user);
         // 注册失败
         if (!saveResult) {
@@ -91,8 +101,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         User safeUser = new User();
         safeUser.setId(user.getId());
         safeUser.setUsername(user.getUsername());
+        safeUser.setRole(user.getRole());
         return safeUser;
     }
 
-
+    @Override
+    public String getRoleById(Long id) {
+        if (id >= 0) {
+            QueryWrapper<UserRole> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("user_id", id);
+            UserRole userRole = userRoleMapper.selectOne(queryWrapper);
+            if (userRole != null) {
+                Role role = roleMapper.selectById(userRole.getRoleId());
+                if (role != null) {
+                    return role.getRole();
+                }
+            }
+        }
+        return null;
+    }
 }

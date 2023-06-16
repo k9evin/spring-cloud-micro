@@ -1,0 +1,14 @@
+2023-06-12 11:51:29 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2023-06-12 11:51:30 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2023-06-12 11:51:31 [main] WARN  o.s.b.w.r.c.AnnotationConfigReactiveWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2023-06-12 11:52:08 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2023-06-12 11:52:08 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2023-06-12 11:52:10 [main] WARN  o.s.b.w.r.c.AnnotationConfigReactiveWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2023-06-12 11:53:09 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2023-06-12 11:53:09 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2023-06-12 14:34:39 [Thread-13] WARN  c.a.n.c.n.NotifyCenter - [NotifyCenter] Start destroying Publisher
+2023-06-12 14:34:39 [Thread-13] WARN  c.a.n.c.n.NotifyCenter - [NotifyCenter] Destruction of the end
+2023-06-12 14:34:39 [Thread-16] WARN  c.a.n.c.h.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2023-06-12 14:34:39 [Thread-16] WARN  c.a.n.c.h.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2023-06-12 14:34:50 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2023-06-12 14:34:50 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.

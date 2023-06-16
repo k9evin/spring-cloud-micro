@@ -12,7 +12,7 @@
     <artifactId>commons</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>logs</module>
+        <module>logger</module>
         <module>utils</module>
     </modules>
 

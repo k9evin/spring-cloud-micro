@@ -9,28 +9,20 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @TableName user
+ * @TableName user_role_tbl
  */
-@TableName(value = "public.user_tbl")
+@TableName(value = "public.user_role_tbl")
 @Data
-public class User implements Serializable {
+public class UserRole implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**
      * 用户id
      */
     @TableId(type = IdType.AUTO)
-    private Long id;
+    private Long userId;
     /**
-     * 用户名
+     * 权限id
      */
-    private String username;
-    /**
-     * 用户密码
-     */
-    private String password;
-    /**
-     * 用户角色
-     */
-    private String role;
+    private Long roleId;
 }

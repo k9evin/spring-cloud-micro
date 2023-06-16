@@ -20,16 +20,17 @@ public interface UserService extends IService<User> {
      *
      * @param username 用户名
      * @param password 用户密码
+     * @param role
      * @return long 新用户id
      */
-    long userRegister(String username, String password);
+    long userRegister(String username, String password, String role);
 
     /**
      * 用户登录
      *
      * @param username 用户名
      * @param password 用户密码
-     * @return hashmap
+     * @return string token
      */
     HashMap<String, Object> userLogin(String username, String password);
 
@@ -41,5 +42,5 @@ public interface UserService extends IService<User> {
      */
     User safeUser(User user);
 
-
+    String getRoleById(Long id);
 }

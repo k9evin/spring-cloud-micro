@@ -3,18 +3,21 @@ package com.example.user.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.user.domain.User;
+import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
  * The type Token utils.
  */
+@Slf4j
 public class TokenUtils {
 
-
-    private static final long EXPIRE_TIME = 60 * 1000;
+    private static final long EXPIRE_TIME = 60 * 60 * 1000;
     private static final String SECRET = "dinglicom";
 
     /**
@@ -47,8 +50,25 @@ public class TokenUtils {
             JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(TokenUtils.SECRET)).build();
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
             return true;
-        } catch (Exception e) {
-            throw new RuntimeException("Token已无效，请重试！");
+        } catch (TokenExpiredException e) {
+            throw new RuntimeException("Token expired");
         }
+    }
+
+    public static Long getUserId(String token) {
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(TokenUtils.SECRET)).build();
+        DecodedJWT decodedJWT = jwtVerifier.verify(token);
+        System.out.println(decodedJWT.getClaim("id").asLong());
+        return decodedJWT.getClaim("id").asLong();
+    }
+
+    /**
+     * 从cookies中获取token
+     *
+     * @param request the request
+     * @return the token
+     */
+    public static String getToken(HttpServletRequest request) {
+        return request.getHeader("token");
     }
 }
