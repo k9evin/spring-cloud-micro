@@ -51,7 +51,7 @@ public class TokenUtils {
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
             return true;
         } catch (TokenExpiredException e) {
-            throw new RuntimeException("Token expired");
+            throw new RuntimeException("Token expired, log in first");
         }
     }
 

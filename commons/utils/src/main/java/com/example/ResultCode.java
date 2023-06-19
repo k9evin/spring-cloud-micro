@@ -25,6 +25,10 @@ public enum ResultCode {
      */
     NO_PERMISSION(40101, "权限不足"),
     /**
+     * Login failed result code.
+     */
+    LOGIN_FAILED(40300, "登录失败"),
+    /**
      * System error result code.
      */
     SYSTEM_ERROR(50000, "系统内部错误");

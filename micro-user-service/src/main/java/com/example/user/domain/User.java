@@ -30,7 +30,7 @@ public class User implements Serializable {
      */
     private String password;
     /**
-     * 用户角色
+     * 用户角色id
      */
-    private String role;
+    private Long role;
 }

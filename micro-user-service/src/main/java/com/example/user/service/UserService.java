@@ -23,7 +23,7 @@ public interface UserService extends IService<User> {
      * @param role
      * @return long 新用户id
      */
-    long userRegister(String username, String password, String role);
+    long userRegister(String username, String password, Long role);
 
     /**
      * 用户登录
@@ -42,5 +42,5 @@ public interface UserService extends IService<User> {
      */
     User safeUser(User user);
 
-    String getRoleById(Long id);
+    // String getRoleById(Long id);
 }

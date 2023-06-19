@@ -23,7 +23,7 @@ public class Role implements Serializable {
     /**
      * 权限名
      */
-    private String roleName;
+    private String name;
     /**
      * 权限
      */
