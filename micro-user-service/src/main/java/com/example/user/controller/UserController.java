@@ -73,11 +73,12 @@ public class UserController {
             return ResultUtils.failure(ResultCode.NULL_PARAMS_ERROR, null, "用户名或密码不能为空");
         }
         HashMap<String, Object> hashMap = userService.userLogin(username, password);
-        if (hashMap != null) {
+        if (hashMap.get("token") != null) {
             return ResultUtils.success(hashMap);
         }
         return ResultUtils.failure(ResultCode.PARAMS_ERROR, null, "请检查用户名或密码！");
     }
+
 
     /**
      * 获取所有用户脱敏信息
@@ -121,6 +122,6 @@ public class UserController {
 
     @PostMapping("/welcome")
     public String welcome() {
-        return "Welcome page";
+        return "登陆成功！";
     }
 }

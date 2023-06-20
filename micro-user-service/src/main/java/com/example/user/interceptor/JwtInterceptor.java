@@ -19,14 +19,13 @@ public class JwtInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String token = request.getHeader("Token");
-        // JwtInterceptor.log.info("Token: {}", token);
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         if (method.isAnnotationPresent((LoginRequired.class))) {
             LoginRequired loginRequired = method.getAnnotation(LoginRequired.class);
             if (loginRequired.required()) {
                 if (token == null) {
-                    response.setStatus(403);
+                    response.setStatus(403, "Forbidden");
                     return false;
                 }
                 return TokenUtils.verifyToken(token);

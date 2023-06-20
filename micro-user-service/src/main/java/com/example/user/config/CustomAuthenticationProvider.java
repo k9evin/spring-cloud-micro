@@ -36,7 +36,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
         }
         throw new AuthenticationException("用户名或密码错误") {
-            private static final long serialVersionUID = -3649642162690908928L;
+            private static final long serialVersionUID = -1L;
         };
     }
 

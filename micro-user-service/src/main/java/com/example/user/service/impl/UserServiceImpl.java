@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -64,28 +63,38 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public HashMap<String, Object> userLogin(String username, String password) {
+        HashMap<String, Object> result = new HashMap<>();
         // 检验参数为空
         if (StringUtils.isAnyBlank(username, password)) {
-            return null;
+            result.put("code", -1);
+            result.put("msg", "用户名或密码不能为空");
+            return result;
         }
-        // 密码加密
-        String encryptedPwd = DigestUtils.md5DigestAsHex((UserServiceImpl.SALT + password).getBytes());
-        // 校验用户信息
+        // 检验用户是否存在
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
-        queryWrapper.eq("password", encryptedPwd);
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) {
-            return null;
+            result.put("code", -1);
+            result.put("msg", "用户不存在");
+            return result;
         }
-        // 返回token
+        // 检验密码是否正确
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String encryptedPwd = bCryptPasswordEncoder.encode(password);
+        if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
+            result.put("code", -1);
+            result.put("msg", "密码错误");
+            return result;
+        }
+        // 生成token
         String token = TokenUtils.createToken(user);
-        User safeUser = safeUser(user);
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("User", safeUser);
-        hashMap.put("Token", token);
-        return hashMap;
+        result.put("code", 0);
+        result.put("msg", "登录成功");
+        result.put("token", token);
+        return result;
     }
+
 
     @Override
     public User safeUser(User user) {
