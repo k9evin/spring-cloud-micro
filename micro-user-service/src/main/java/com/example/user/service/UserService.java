@@ -41,6 +41,4 @@ public interface UserService extends IService<User> {
      * @return user 脱敏用户
      */
     User safeUser(User user);
-
-    // String getRoleById(Long id);
 }

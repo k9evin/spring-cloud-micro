@@ -1,4 +1,4 @@
-package com.example.user.config;
+package com.example.user.component;
 
 import com.example.user.service.impl.UserDetailServiceImpl;
 import org.springframework.security.authentication.AuthenticationProvider;

@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
  */
 @RestController
 @Slf4j
-@RequestMapping("/user")
 @ApiOperation("用户管理")
 public class UserController {
 
@@ -35,7 +34,7 @@ public class UserController {
      * @param user 用户
      * @return 新用户id
      */
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     @ApiOperation("用户注册")
     public BaseResponse<Long> userRegister(@RequestBody User user) {
         if (user == null) {
@@ -60,13 +59,14 @@ public class UserController {
      * @param user 用户
      * @return the base response
      */
-    @GetMapping("/login")
+    @PostMapping("/auth/login")
     @ApiOperation("用户登录")
     @ResponseBody
     public BaseResponse<HashMap<String, Object>> userLogin(@RequestBody User user) {
         if (user == null) {
             return ResultUtils.failure(ResultCode.NULL_PARAMS_ERROR, null, "请输入用户名和密码");
         }
+        UserController.log.info("login执行==========");
         String username = user.getUsername();
         String password = user.getPassword();
         if (StringUtils.isAnyBlank(username, password)) {
@@ -86,7 +86,7 @@ public class UserController {
      *
      * @return 所有用户
      */
-    @GetMapping("/getAllUsers")
+    @GetMapping("/admin/getAllUsers")
     // @LoginRequired
     @ApiOperation("获取所有用户信息")
     public BaseResponse<List<User>> getAllUsers() {
@@ -95,7 +95,7 @@ public class UserController {
         return ResultUtils.success(safeUsers);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     @ApiOperation("获取单用户信息")
     @ResponseBody
     public BaseResponse<User> getUser(@PathVariable Long id) {
@@ -118,6 +118,12 @@ public class UserController {
     @ApiOperation("测试管理员权限")
     public String hello() {
         return "Permission: admin";
+    }
+
+    @GetMapping("/user/hello")
+    @ApiOperation("测试普通用户权限")
+    public String hello1() {
+        return "Permission: user";
     }
 
     @PostMapping("/welcome")

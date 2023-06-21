@@ -29,6 +29,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if (username == null) {
+            throw new UsernameNotFoundException("用户名不能为空");
+        }
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         // 查询用户信息
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();

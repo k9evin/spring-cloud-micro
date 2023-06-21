@@ -6,6 +6,7 @@ import com.example.ResultUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import java.io.PrintWriter;
 /**
  * Custom authentication failure handler.
  */
+@Component("myAuthenticationFailureHandler")
 public class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     @Override

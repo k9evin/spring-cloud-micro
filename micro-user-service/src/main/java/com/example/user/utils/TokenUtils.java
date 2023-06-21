@@ -51,11 +51,11 @@ public class TokenUtils {
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
             return true;
         } catch (TokenExpiredException e) {
-            throw new RuntimeException("Token expired, log in first");
+            throw new TokenExpiredException("Token expired, log in first", e.getExpiredOn());
         }
     }
 
-    public static Long getUserId(String token) {
+    static Long getUserId(String token) {
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(TokenUtils.SECRET)).build();
         DecodedJWT decodedJWT = jwtVerifier.verify(token);
         System.out.println(decodedJWT.getClaim("id").asLong());

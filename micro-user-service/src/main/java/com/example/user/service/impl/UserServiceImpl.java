@@ -81,8 +81,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         // 检验密码是否正确
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String encryptedPwd = bCryptPasswordEncoder.encode(password);
-        if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
+        boolean flag = bCryptPasswordEncoder.matches(password, user.getPassword());
+        UserServiceImpl.log.info("flag:{}", flag);
+        if (!flag) {
             result.put("code", -1);
             result.put("msg", "密码错误");
             return result;
