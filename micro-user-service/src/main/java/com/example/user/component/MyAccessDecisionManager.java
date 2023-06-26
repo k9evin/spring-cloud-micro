@@ -23,7 +23,12 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             // 获取访问该url所需的权限
             String attribute = configAttribute.getAttribute();
             for (GrantedAuthority authority : grantedAuthorities) {
-                if (attribute.equals(authority.getAuthority()) || "permitAll".equals(attribute)) {
+                // 判断用户权限是否匹配, 允许管理员访问所有url
+                if ("ROLE_ADMIN".equals(authority.getAuthority())) {
+                    MyAccessDecisionManager.log.info("管理员权限 {}", attribute);
+                    return;
+                }
+                if (attribute.equals(authority.getAuthority()) || "ROLE_ANONYMOUS".equals(attribute)) {
                     MyAccessDecisionManager.log.info("匹配成功 {}", attribute);
                     return;
                 }

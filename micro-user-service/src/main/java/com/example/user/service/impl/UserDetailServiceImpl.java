@@ -41,7 +41,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户不存在");
         }
         // 查询角色信息
-        Role role = roleMapper.selectById(user.getRole());
+        Role role = roleMapper.selectById(user.getRoleId());
         UserDetailServiceImpl.log.info("用户角色信息: {}", role.getRole());
         // 设置权限
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getRole());

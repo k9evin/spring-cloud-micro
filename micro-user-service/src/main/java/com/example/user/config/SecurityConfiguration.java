@@ -49,15 +49,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Resource
     private MyAccessDecisionManager myAccessDecisionManager;
 
-    // 配置角色继承
-    // @Bean
-    // RoleHierarchy roleHierarchy() {
-    //     RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-    //     final String hierarchy = "ROLE_admin > ROLE_user";
-    //     roleHierarchy.setHierarchy(hierarchy);
-    //     return roleHierarchy;
-    // }
-
 
     /**
      * 加密方式
@@ -77,7 +68,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/configuration/ui",
                         "/swagger-resources",
                         "/swagger-resources/configuration/security",
-                        "/swagger-ui.html", "/doc.html");
+                        "/swagger-ui.html",
+                        "/doc.html",
+                        "favicon.ico");
     }
 
     @Override
@@ -89,12 +82,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .and()
-                .formLogin().loginPage("/login.html").loginProcessingUrl("/auth/login").permitAll()
-                .successHandler(myAuthenticationSuccessHandler)
-                .failureHandler(myAuthenticationFailureHandler);
-
-        http.authorizeRequests()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O o) {
@@ -104,17 +91,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     }
                 })
                 .antMatchers("/auth/**").permitAll()  // 注册登录接口放行
-                // .antMatchers("/admin/**").hasRole("ADMIN") // admin接口只允许admin访问
-                // .antMatchers("/user/**").hasAnyRole("USER", "ADMIN") // user接口只允许user和admin访问
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .httpBasic();
-        //
-        // // 登录
-        // http.formLogin().loginPage("/login.html").loginProcessingUrl("/auth/login").permitAll()
-        //         .successHandler(myAuthenticationSuccessHandler)
-        //         .failureHandler(myAuthenticationFailureHandler);
-        // .successForwardUrl("/welcome");
+
+        // 登录
+        http.formLogin().loginPage("/login.html").loginProcessingUrl("/auth/login").permitAll()
+                .successHandler(myAuthenticationSuccessHandler)
+                .failureHandler(myAuthenticationFailureHandler);
 
         // 权限不足处理
         http.exceptionHandling()

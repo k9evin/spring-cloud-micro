@@ -2,10 +2,12 @@ package com.example;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Data
+@NoArgsConstructor
 public class BaseResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 3977796148001553541L;

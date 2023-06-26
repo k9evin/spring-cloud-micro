@@ -41,4 +41,12 @@ public interface UserService extends IService<User> {
      * @return user 脱敏用户
      */
     User safeUser(User user);
+
+    /**
+     * 删除用户
+     *
+     * @param id 用户id
+     * @return boolean 删除结果
+     */
+    boolean deleteUser(Long id);
 }

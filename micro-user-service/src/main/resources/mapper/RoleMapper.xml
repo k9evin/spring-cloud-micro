@@ -5,12 +5,12 @@
 <mapper namespace="com.example.user.mapper.RoleMapper">
 
     <resultMap id="BaseResultMap" type="com.example.user.domain.Role">
-        <id property="id" column="id" jdbcType="BIGINT"/>
-        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <id property="role_id" column="role_id" jdbcType="BIGINT"/>
+        <result property="role_name" column="role_name" jdbcType="VARCHAR"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,name,role
+        role_id,role_name,role
     </sql>
 </mapper>

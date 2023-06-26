@@ -5,13 +5,15 @@
 <mapper namespace="com.example.user.mapper.PrivilegeMapper">
 
     <resultMap id="BaseResultMap" type="com.example.user.domain.Privilege">
-        <result property="id" column="id" jdbcType="BIGINT"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="role_id" column="role_id" jdbcType="BIGINT"/>
         <result property="privilege_name" column="privilege_name" jdbcType="VARCHAR"/>
         <result property="privilege_url" column="privilege_url" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id
-        ,privilege_name,privilege_url
+        ,role_id,privilege_name,
+        privilege_url
     </sql>
 </mapper>

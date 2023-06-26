@@ -1,8 +1,0 @@
-2023-06-13 09:03:18 [Thread-17] WARN  c.a.n.c.h.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
-2023-06-13 09:03:18 [Thread-14] WARN  c.a.n.c.n.NotifyCenter - [NotifyCenter] Start destroying Publisher
-2023-06-13 09:03:19 [Thread-14] WARN  c.a.n.c.n.NotifyCenter - [NotifyCenter] Destruction of the end
-2023-06-13 09:03:19 [Thread-17] WARN  c.a.n.c.h.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
-2023-06-13 16:05:38 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2023-06-13 16:05:38 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2023-06-13 18:18:20 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2023-06-13 18:18:20 [main] WARN  c.n.c.s.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.

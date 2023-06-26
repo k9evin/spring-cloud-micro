@@ -9,7 +9,8 @@ public class ResultUtils {
         return new BaseResponse<>(ResultCode.SUCCESS.getCode(), data, description);
     }
 
-    public static <T> BaseResponse<T> failure(ResultCode code, T data, String description) {
+    public static <T> BaseResponse<T> error(ResultCode code, T data, String description) {
         return new BaseResponse<>(code.getCode(), data, description);
     }
+
 }

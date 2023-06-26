@@ -22,7 +22,7 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        BaseResponse<Object> failed = ResultUtils.failure(ResultCode.LOGIN_FAILED, e.getMessage(), ResultCode.LOGIN_FAILED.getMessage());
+        BaseResponse<Object> failed = ResultUtils.error(ResultCode.LOGIN_FAILED, e.getMessage(), ResultCode.LOGIN_FAILED.getMessage());
         httpServletResponse.setContentType("application/json;charset=utf-8");
         PrintWriter out = httpServletResponse.getWriter();
         out.write(new ObjectMapper().writeValueAsString(failed));

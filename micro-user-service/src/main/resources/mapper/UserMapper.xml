@@ -8,11 +8,12 @@
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
-        <result property="role" column="role" jdbcType="VARCHAR"/>
+        <result property="role_id" column="role_id" jdbcType="BIGINT"/>
+        <result property="is_deleted" column="is_deleted" jdbcType="OTHER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id
-        ,username,password,role
+        id,username,password,
+        role_id,is_deleted
     </sql>
 </mapper>

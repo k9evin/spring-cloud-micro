@@ -8,6 +8,7 @@ import com.example.user.service.UserService;
 import com.example.user.utils.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +53,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = new User();
         user.setUsername(username);
         user.setPassword(encryptedPwd);
-        user.setRole(role);
+        user.setRoleId(role);
         boolean saveResult = save(user);
         // 注册失败
         if (!saveResult) {
@@ -62,6 +63,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    @Cacheable(value = "user", key = "#username")
     public HashMap<String, Object> userLogin(String username, String password) {
         HashMap<String, Object> result = new HashMap<>();
         // 检验参数为空
@@ -105,7 +107,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User safeUser = new User();
         safeUser.setId(user.getId());
         safeUser.setUsername(user.getUsername());
-        safeUser.setRole(user.getRole());
+        safeUser.setRoleId(user.getRoleId());
         return safeUser;
+    }
+
+    @Override
+    public boolean deleteUser(Long id) {
+        if (id == null) {
+            return false;
+        }
+        User user = userMapper.selectById(id);
+        if (user == null) {
+            return false;
+        }
+        return removeById(id);
     }
 }

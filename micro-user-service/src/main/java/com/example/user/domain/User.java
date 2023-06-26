@@ -1,36 +1,44 @@
 package com.example.user.domain;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 /**
- * @TableName user
+ * @TableName user_tbl
  */
-@TableName(value = "public.user_tbl")
+@TableName(value = "user_tbl")
 @Data
+@NoArgsConstructor
 public class User implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
     /**
      * 用户id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
      * 用户名
      */
+    @TableField(value = "username")
     private String username;
     /**
-     * 用户密码
+     * 密码
      */
+    @TableField(value = "password")
     private String password;
     /**
-     * 用户角色id
+     * 角色id
      */
-    private Long role;
+    @TableField(value = "role_id")
+    private Long roleId;
+    /**
+     * 是否删除
+     */
+    @TableField(value = "is_deleted")
+    @TableLogic
+    private Object isDeleted;
 }

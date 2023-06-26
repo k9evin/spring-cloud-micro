@@ -19,7 +19,7 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
-        BaseResponse<Object> denied = ResultUtils.failure(ResultCode.NO_PERMISSION, e.getMessage(), "权限不足");
+        BaseResponse<Object> denied = ResultUtils.error(ResultCode.NO_PERMISSION, e.getMessage(), "权限不足");
         httpServletResponse.setContentType("application/json;charset=utf-8");
         PrintWriter out = httpServletResponse.getWriter();
         out.write(new ObjectMapper().writeValueAsString(denied));

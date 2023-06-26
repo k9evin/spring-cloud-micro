@@ -19,7 +19,6 @@ target/
 *.iml
 *.ipr
 logs/
-.fastRequest
 
 ### NetBeans ###
 /nbproject/private/
@@ -38,3 +37,4 @@ build/
 /logs/**
 /logs/error/
 /logs/warn/
+logs\

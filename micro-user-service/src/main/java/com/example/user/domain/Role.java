@@ -18,15 +18,16 @@ public class Role implements Serializable {
     /**
      * 权限id
      */
-    @TableId
-    private Long id;
+    @TableId(value = "role_id")
+    private Long roleId;
     /**
      * 权限名
      */
-    private String name;
+    @TableField(value = "role_name")
+    private String roleName;
     /**
      * 权限
      */
+    @TableField(value = "role")
     private String role;
-
 }
